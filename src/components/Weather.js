@@ -5,22 +5,38 @@ class Weather extends React.Component {
 
     state = {
         weather: null,
-        quote: null
+        quote: null,
+        geo: null
 
     }
 
     componentWillMount() {
-        this.getWeatherData()
+        this.getGeoData()
+
         this.getQuoteData()
+
     }
 
     getWeatherData = () => {
-        fetch("http://api.openweathermap.org/data/2.5/weather?q=Lublin,pl&units=metric&lang=pl&APPID=0b3d75e5a49f2a267f054a0a60bed6f3")
+        const city = this.state.geo && this.state.geo.city
+        const countryCode = this.state.geo && this.state.geo.countryCode
+        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&units=metric&lang=pl&APPID=0b3d75e5a49f2a267f054a0a60bed6f3`)
             .then(response => response.json())
             .then(dataWeather => this.setState({
                 weather: dataWeather
 
             }))
+            .catch((err) => console.log(err))
+    }
+
+    getGeoData = () => {
+        fetch("http://ip-api.com/json")
+            .then(response => response.json())
+            .then(dataGeo => {this.setState ({
+                geo : dataGeo
+            })
+                this.getWeatherData()
+            })
             .catch((err) => console.log(err))
     }
 
@@ -35,7 +51,8 @@ class Weather extends React.Component {
 
     render() {
         //console.log(this.state.weather)
-        console.log(this.state.quote)
+        //console.log(this.state.quote)
+        console.log(this.state.geo)
         return (
             <div>
                 <div>
