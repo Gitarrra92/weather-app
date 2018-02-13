@@ -54,11 +54,18 @@ class Weather extends React.Component {
         //console.log(this.state.quote)
         console.log(this.state.geo)
         return (
-            <div>
+            <div className={
+                this.state.weather
+                &&
+                this.state.weather.main.temp < 0 ?
+                    "cold"
+                    :
+                    "warm"
+            }>
                 <div>
                     {
                         <img
-                            src={`http://openweathermap.org/img/w/${this.state.weather && this.state.weather.weather[0].icon}.png`}
+                            src={`${process.env.PUBLIC_URL}/img/${this.state.weather && this.state.weather.weather[0].icon}.svg`}
                             alt={""}
                         />
                     }
@@ -74,7 +81,7 @@ class Weather extends React.Component {
                     this.state.weather.main.temp
                 } &deg;C
                 </div>
-                <div>
+                <div className="weather">
                     {
                         this.state.weather
                         &&
