@@ -1,5 +1,6 @@
 import React from 'react'
 import '../App.css'
+import moment from 'moment'
 
 class Weather extends React.Component {
 
@@ -99,6 +100,11 @@ class Weather extends React.Component {
                     &&
                     this.state.quote[0].title
                 }
+                </div>
+                <div className="w-datetime">
+                    {
+                        moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
+                    }
                 </div>
             </div>
 
