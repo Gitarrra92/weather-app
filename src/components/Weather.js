@@ -28,9 +28,28 @@ class Weather extends React.Component {
             <div>
                 <div>
                     {
+                        <img
+                            src={`http://openweathermap.org/img/w/${this.state.weather && this.state.weather.weather[0].icon}.png`}
+                            alt={""}
+                        />
+                    }
+                    {
                         this.state.weather
                         &&
                         this.state.weather.name
+                    }
+                </div>
+                <div>{
+                    this.state.weather
+                    &&
+                    this.state.weather.main.temp
+                } &deg;C
+                </div>
+                <div>
+                    {
+                        this.state.weather
+                        &&
+                        this.state.weather.weather[0].description
                     }
                 </div>
             </div>
