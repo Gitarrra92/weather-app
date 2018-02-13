@@ -4,12 +4,14 @@ import '../App.css'
 class Weather extends React.Component {
 
     state = {
-        weather: null
+        weather: null,
+        quote: null
 
     }
 
     componentWillMount() {
         this.getWeatherData()
+        this.getQuoteData()
     }
 
     getWeatherData = () => {
@@ -22,8 +24,18 @@ class Weather extends React.Component {
             .catch((err) => console.log(err))
     }
 
+    getQuoteData = () => {
+        fetch("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1")
+            .then(response => response.json())
+            .then(dataQuote => this.setState({
+                quote: dataQuote
+            }))
+            .catch((err) => console.log(err))
+    }
+
     render() {
-        console.log(this.state.weather)
+        //console.log(this.state.weather)
+        console.log(this.state.quote)
         return (
             <div>
                 <div>
@@ -51,6 +63,18 @@ class Weather extends React.Component {
                         &&
                         this.state.weather.weather[0].description
                     }
+                </div>
+                <div>{
+                    this.state.quote
+                    &&
+                    this.state.quote[0].content
+                }
+                </div>
+                <div>{
+                    this.state.quote
+                    &&
+                    this.state.quote[0].title
+                }
                 </div>
             </div>
 
