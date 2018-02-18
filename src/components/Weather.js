@@ -91,10 +91,10 @@ class Weather extends React.Component {
                         this.state.weather.weather[0].description
                     }
                 </div>
-                <div className="quote">{
+                <div className="quote"> {
                     this.state.quote
                     &&
-                    this.state.quote[0].content
+                    this.state.quote[0].content.replace('<p>','').replace('</p>','')
                 }
                 </div>
                 <div>{
@@ -105,7 +105,7 @@ class Weather extends React.Component {
                 </div>
                 <div className="datetime">
                     {
-                        moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
+                        moment().format("dddd, MMMM Do YYYY")
                     }
                 </div>
             </div>
