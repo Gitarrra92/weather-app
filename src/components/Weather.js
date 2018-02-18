@@ -21,7 +21,7 @@ class Weather extends React.Component {
     getWeatherData = () => {
         const city = this.state.geo && this.state.geo.city
         const countryCode = this.state.geo && this.state.geo.countryCode
-        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&units=metric&lang=pl&APPID=0b3d75e5a49f2a267f054a0a60bed6f3`)
+        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&units=metric&lang=pl&APPID=dabd8394d3f47226e331477d5ccf265e`)
             .then(response => response.json())
             .then(dataWeather => this.setState({
                 weather: dataWeather
