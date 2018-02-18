@@ -21,7 +21,7 @@ class Weather extends React.Component {
     getWeatherData = () => {
         const city = this.state.geo && this.state.geo.city
         const countryCode = this.state.geo && this.state.geo.countryCode
-        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&units=metric&lang=pl&APPID=dabd8394d3f47226e331477d5ccf265e`)
+        fetch(`http://api.openweathermap.org/data/2.5/weather?q=Lublin,pl&units=metric&lang=pl&APPID=dabd8394d3f47226e331477d5ccf265e`)
             .then(response => response.json())
             .then(dataWeather => this.setState({
                 weather: dataWeather
@@ -59,37 +59,39 @@ class Weather extends React.Component {
                 this.state.weather
                 &&
                 this.state.weather.main.temp < 0 ?
-                    "cold"
+                    " main cold"
                     :
-                    "warm"
+                    "main warm"
             }>
-                <div>
+                <div className="icon">
                     {
                         <img
                             src={`${process.env.PUBLIC_URL}/img/${this.state.weather && this.state.weather.weather[0].icon}.svg`}
                             alt={""}
                         />
                     }
+                </div>
+                <div className="city">
                     {
                         this.state.weather
                         &&
                         this.state.weather.name
                     }
                 </div>
-                <div>{
+                <div className="temperature">{
                     this.state.weather
                     &&
                     this.state.weather.main.temp
                 } &deg;C
                 </div>
-                <div className="weather">
+                <div className="description">
                     {
                         this.state.weather
                         &&
                         this.state.weather.weather[0].description
                     }
                 </div>
-                <div>{
+                <div className="quote">{
                     this.state.quote
                     &&
                     this.state.quote[0].content
@@ -101,7 +103,7 @@ class Weather extends React.Component {
                     this.state.quote[0].title
                 }
                 </div>
-                <div className="w-datetime">
+                <div className="datetime">
                     {
                         moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
                     }
