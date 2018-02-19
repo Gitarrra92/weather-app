@@ -87,7 +87,7 @@ class Weather extends React.Component {
                     this.state.weather
                     &&
                     this.state.weather.main.temp
-                } &deg;
+                }&deg;C
                 </div>
                 <div className="description">
                     {
