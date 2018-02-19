@@ -1,6 +1,7 @@
 import React from 'react'
 import '../App.css'
 import moment from 'moment'
+import entities from 'html-entities'
 
 class Weather extends React.Component {
 
@@ -42,7 +43,9 @@ class Weather extends React.Component {
     }
 
     getQuoteData = () => {
-        fetch("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1")
+        let proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        let targetUrl = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1'
+        fetch(proxyUrl + targetUrl)
             .then(response => response.json())
             .then(dataQuote => this.setState({
                 quote: dataQuote
@@ -82,7 +85,7 @@ class Weather extends React.Component {
                     this.state.weather
                     &&
                     this.state.weather.main.temp
-                } &deg;C
+                } &deg;
                 </div>
                 <div className="description">
                     {
@@ -94,10 +97,11 @@ class Weather extends React.Component {
                 <div className="quote"> {
                     this.state.quote
                     &&
-                    this.state.quote[0].content.replace('<p>','').replace('</p>','')
+                    entities.AllHtmlEntities.decode(
+                    this.state.quote[0].content)
                 }
                 </div>
-                <div>{
+                <div className="quote-title">{
                     this.state.quote
                     &&
                     this.state.quote[0].title
