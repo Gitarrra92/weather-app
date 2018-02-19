@@ -19,17 +19,20 @@ class Weather extends React.Component {
 
     }
 
+
     getWeatherData = () => {
-        const city = this.state.geo && this.state.geo.city
-        const countryCode = this.state.geo && this.state.geo.countryCode
-        fetch(`http://api.openweathermap.org/data/2.5/weather?q=Lublin,pl&units=metric&lang=pl&APPID=dabd8394d3f47226e331477d5ccf265e`)
+        //const city = this.state.geo.city ? this.state.geo.city : "Lublin"; //if your IP is banned on ip-api hardcode "Lublin" :)
+        //const countryCode = this.state.geo.countryCode ? this.state.geo.countryCode : "pl";
+        const lat = this.state.geo.lat ? this.state.geo.lat : "51.2441";
+        const lon = this.state.geo.lon ? this.state.geo.lon : "22.513";
+        fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&&lang=en&APPID=dabd8394d3f47226e331477d5ccf265e`)
             .then(response => response.json())
             .then(dataWeather => this.setState({
                 weather: dataWeather
-
             }))
             .catch((err) => console.log(err))
     }
+
 
     getGeoData = () => {
         fetch("http://ip-api.com/json")
@@ -54,9 +57,8 @@ class Weather extends React.Component {
     }
 
     render() {
-        //console.log(this.state.weather)
-        //console.log(this.state.quote)
-        console.log(this.state.geo)
+
+        //console.log(this.state.geo)
         return (
             <div className={
                 this.state.weather
@@ -76,9 +78,9 @@ class Weather extends React.Component {
                 </div>
                 <div className="city">
                     {
-                        this.state.weather
+                        this.state.geo
                         &&
-                        this.state.weather.name
+                        this.state.geo.city
                     }
                 </div>
                 <div className="temperature">{
@@ -97,8 +99,7 @@ class Weather extends React.Component {
                 <div className="quote"> {
                     this.state.quote
                     &&
-                    entities.AllHtmlEntities.decode(
-                    this.state.quote[0].content)
+                    entities.AllHtmlEntities.decode(this.state.quote[0].content.replace('<p>','').replace('</p>',''))
                 }
                 </div>
                 <div className="quote-title">{
